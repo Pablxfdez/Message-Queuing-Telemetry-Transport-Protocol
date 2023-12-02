@@ -1,39 +1,29 @@
-# PRPA_MQTT
-1 Broker
-Un componente esencial del sistema es un broker que se encarga de gestionar las publicaciones
-y subscripciones de los distintos elementos que se conectan.Para los ejercicios posteriores
-utilizaremos el broker en simba.fdi.ucm.es.
-Los usuarios que se conectan, pueden enviar y recibir mensajes en el topic clients. También podréis crear vuestros propios canales de forma jerárquica a partir de esta raíz. Es decir,
-podéis publicar y leer en topics del estilo clients/mi_tema/mi_subtema.
-Comprueba, en primer lugar, que puedes conectarte al broker y enviar y recibir mensajes.
+# Message Queuing Telemetry Transport Protocol Repository
 
-2 Números
-En el topic numbers se están publicando constantemente números,los hay enteros y los hay
-reales.Escribe el código de un cliente mqtt que lea este topic y que realice tareas con los
-números leídos,por ejemplo, separar los enteros y reales,calcular la frecuencia de cada uno
-de ellos, estudiar propiedades (como ser o no primo) en los enteros, etc.
+This repository contains a series of Python scripts (`*.py` files), each designed to address specific problems related to MQTT (Message Queuing Telemetry Transport) protocol. Below is a description of each script and the problem it solves:
 
-3 Temperaturas
-En el topic temperature puede haber varios sensores emitiendo valores. Escribe el código de
-un cliente mqtt que lea los subtopics y que jado un intervalo de tiempo (mejor pequeño,
-entre 4 y 8 segundos) calcule la temperatura máxima, mínima y media para cada sensor y de
-todos los sensores.
+## 1. `1_Broker.py`
+**Problem 1: Broker Management**
+- This script is responsible for managing a broker in the MQTT system. The broker handles publications and subscriptions of various elements that connect to it. The script ensures connectivity to the broker at simba.fdi.ucm.es and facilitates sending and receiving messages in the `clients` topic. It also supports creating hierarchical channels from this root topic.
 
-4 Temperatura y humedad
-Elige un termómetro concreto al que escuchar,es decir, uno de los sensores que publican
-en temperature. Escribe ahora el código para un cliente mqtt cuya misión es escuchar un
-termómetro y, si su valor supera una determinada temperatura,K 0, entonces pase a escuchar
-también en el topic humidity. Si la temperatura baja de K 0 o el valor de humidity sube de
-K 1 entonces el cliente dejará de escuchar en el topic humidity.
+## 2. `2_Numbers.py`
+**Problem 2: Number Processing**
+- This script is an MQTT client designed to read from the `numbers` topic, where integers and real numbers are constantly published. It separates integers from real numbers, calculates their frequencies, and analyzes properties of the integers (like primality).
 
-5 Temporizador
-Escribe el código de un cliente mqtt que podamos utilizar como temporizador. El cliente leerá
-mensajes (elige tú mismo el topic) en los que se indicarán: tiempo de espera, topic y mensaje
-a publicar una vez pasado el tiempo de espera. El cliente tendrá que encargarse de esperar el
-tiempo adecuado y luego publicar el mensaje en el topic correspondiente.
+## 3. `3_Temperature.py`
+**Problem 3: Temperature Monitoring**
+- This MQTT client script reads from the `temperature` topic, which may have multiple sensors emitting values. It calculates the maximum, minimum, and average temperature for each sensor and across all sensors within a specified short time interval (between 4 and 8 seconds).
 
-6 Encadena clientes
-Diseña e implementa un esquema en elque diferentes clientes mqtt, basados en las soluciones anteriores, encadenen su comportamiento. Por ejemplo, un cliente escucha números y en
-algunas circunstancias (recibe un entero primo, por ejemplo), decide poner una alarma en el
-temporizador, durante ese tiempo, se pone a escuchar en eltopic humidity para calcular el
-valor medio. . . Imagina otros encademientos.
+## 4. `4_Humidity.py`
+**Problem 4: Temperature and Humidity Monitoring**
+- This script focuses on a specific thermometer within the `temperature` topic. The MQTT client listens to this thermometer and, upon detecting a temperature exceeding a predefined threshold (K0), starts listening to the `humidity` topic as well. It stops listening to `humidity` if the temperature falls below K0 or humidity exceeds K1.
+
+## 5. `5_Timer.py`
+**Problem 5: MQTT Timer Client**
+- This script acts as a timer. The MQTT client reads messages indicating a waiting time, a topic, and a message to be published after the waiting period. The client waits for the specified duration and then publishes the message in the designated topic.
+
+## 6. `6_Different_Clients_.py`
+**Problem 6: Chaining Client Behaviors**
+- This script is designed to chain the behaviors of different MQTT clients based on the solutions provided in the previous scripts. For example, a client might listen for numbers and, under certain conditions (like receiving a prime number), set an alarm on the timer, and then listen to the `humidity` topic to calculate an average value. This script demonstrates the potential for complex interactions and behaviors among different MQTT clients.
+
+Each script in this repository is a standalone solution to its respective problem, showcasing various aspects and capabilities of MQTT clients in different scenarios.
